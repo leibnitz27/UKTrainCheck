@@ -1,0 +1,262 @@
+{
+    "trainServices": [
+        {
+            "futureCancellation": false,
+            "futureDelay": false,
+            "origin": [
+                {
+                    "locationName": "Portsmouth Harbour",
+                    "crs": "PMH",
+                    "assocIsCancelled": false
+                }
+            ],
+            "destination": [
+                {
+                    "locationName": "London Waterloo",
+                    "crs": "WAT",
+                    "assocIsCancelled": false
+                }
+            ],
+            "std": "06:04",
+            "etd": "On time",
+            "platform": "1",
+            "operator": "South Western Railway",
+            "operatorCode": "SW",
+            "isCircularRoute": false,
+            "isCancelled": false,
+            "filterLocationCancelled": false,
+            "serviceType": "train",
+            "length": 0,
+            "detachFront": false,
+            "isReverseFormation": false,
+            "serviceID": "782776WITLEY__"
+        },
+        {
+            "futureCancellation": false,
+            "futureDelay": false,
+            "origin": [
+                {
+                    "locationName": "London Waterloo",
+                    "crs": "WAT",
+                    "assocIsCancelled": false
+                }
+            ],
+            "destination": [
+                {
+                    "locationName": "Portsmouth Harbour",
+                    "crs": "PMH",
+                    "assocIsCancelled": false
+                }
+            ],
+            "std": "06:20",
+            "etd": "On time",
+            "platform": "2",
+            "operator": "South Western Railway",
+            "operatorCode": "SW",
+            "isCircularRoute": false,
+            "isCancelled": false,
+            "filterLocationCancelled": false,
+            "serviceType": "train",
+            "length": 0,
+            "detachFront": false,
+            "isReverseFormation": false,
+            "serviceID": "784496WITLEY__"
+        },
+        {
+            "futureCancellation": false,
+            "futureDelay": false,
+            "origin": [
+                {
+                    "locationName": "Portsmouth Harbour",
+                    "crs": "PMH",
+                    "assocIsCancelled": false
+                }
+            ],
+            "destination": [
+                {
+                    "locationName": "London Waterloo",
+                    "crs": "WAT",
+                    "assocIsCancelled": false
+                }
+            ],
+            "std": "06:43",
+            "etd": "On time",
+            "platform": "1",
+            "operator": "South Western Railway",
+            "operatorCode": "SW",
+            "isCircularRoute": false,
+            "isCancelled": false,
+            "filterLocationCancelled": false,
+            "serviceType": "train",
+            "length": 0,
+            "detachFront": false,
+            "isReverseFormation": false,
+            "serviceID": "784508WITLEY__"
+        },
+        {
+            "futureCancellation": false,
+            "futureDelay": false,
+            "origin": [
+                {
+                    "locationName": "London Waterloo",
+                    "crs": "WAT",
+                    "assocIsCancelled": false
+                }
+            ],
+            "destination": [
+                {
+                    "locationName": "Portsmouth Harbour",
+                    "crs": "PMH",
+                    "assocIsCancelled": false
+                }
+            ],
+            "std": "06:47",
+            "etd": "On time",
+            "platform": "2",
+            "operator": "South Western Railway",
+            "operatorCode": "SW",
+            "isCircularRoute": false,
+            "isCancelled": false,
+            "filterLocationCancelled": false,
+            "serviceType": "train",
+            "length": 0,
+            "detachFront": false,
+            "isReverseFormation": false,
+            "serviceID": "784959WITLEY__"
+        },
+        {
+            "futureCancellation": false,
+            "futureDelay": false,
+            "origin": [
+                {
+                    "locationName": "Fareham",
+                    "crs": "FRM",
+                    "assocIsCancelled": false
+                }
+            ],
+            "destination": [
+                {
+                    "locationName": "London Waterloo",
+                    "crs": "WAT",
+                    "assocIsCancelled": false
+                }
+            ],
+            "std": "07:10",
+            "etd": "On time",
+            "platform": "1",
+            "operator": "South Western Railway",
+            "operatorCode": "SW",
+            "isCircularRoute": false,
+            "isCancelled": false,
+            "filterLocationCancelled": false,
+            "serviceType": "train",
+            "length": 0,
+            "detachFront": false,
+            "isReverseFormation": false,
+            "serviceID": "784966WITLEY__"
+        },
+        {
+            "futureCancellation": false,
+            "futureDelay": false,
+            "origin": [
+                {
+                    "locationName": "London Waterloo",
+                    "crs": "WAT",
+                    "assocIsCancelled": false
+                }
+            ],
+            "destination": [
+                {
+                    "locationName": "Portsmouth Harbour",
+                    "crs": "PMH",
+                    "assocIsCancelled": false
+                }
+            ],
+            "std": "07:12",
+            "etd": "On time",
+            "platform": "2",
+            "operator": "South Western Railway",
+            "operatorCode": "SW",
+            "isCircularRoute": false,
+            "isCancelled": false,
+            "filterLocationCancelled": false,
+            "serviceType": "train",
+            "length": 0,
+            "detachFront": false,
+            "isReverseFormation": false,
+            "serviceID": "784962WITLEY__"
+        },
+        {
+            "futureCancellation": false,
+            "futureDelay": false,
+            "origin": [
+                {
+                    "locationName": "London Waterloo",
+                    "crs": "WAT",
+                    "assocIsCancelled": false
+                }
+            ],
+            "destination": [
+                {
+                    "locationName": "Portsmouth Harbour",
+                    "crs": "PMH",
+                    "assocIsCancelled": false
+                }
+            ],
+            "rsid": "SW191100",
+            "std": "07:42",
+            "etd": "On time",
+            "platform": "2",
+            "operator": "South Western Railway",
+            "operatorCode": "SW",
+            "isCircularRoute": false,
+            "isCancelled": false,
+            "filterLocationCancelled": false,
+            "serviceType": "train",
+            "length": 0,
+            "detachFront": false,
+            "isReverseFormation": false,
+            "serviceID": "783870WITLEY__"
+        },
+        {
+            "futureCancellation": false,
+            "futureDelay": false,
+            "origin": [
+                {
+                    "locationName": "Havant",
+                    "crs": "HAV",
+                    "assocIsCancelled": false
+                }
+            ],
+            "destination": [
+                {
+                    "locationName": "London Waterloo",
+                    "crs": "WAT",
+                    "assocIsCancelled": false
+                }
+            ],
+            "std": "07:45",
+            "etd": "On time",
+            "platform": "1",
+            "operator": "South Western Railway",
+            "operatorCode": "SW",
+            "isCircularRoute": false,
+            "isCancelled": false,
+            "filterLocationCancelled": false,
+            "serviceType": "train",
+            "length": 0,
+            "detachFront": false,
+            "isReverseFormation": false,
+            "serviceID": "784580WITLEY__"
+        }
+    ],
+    "Xmlns": {
+        "Count": 8
+    },
+    "generatedAt": "2026-03-02T05:46:37.7275352+00:00",
+    "locationName": "Witley",
+    "crs": "WTY",
+    "filterType": "to",
+    "platformAvailable": true,
+    "areServicesAvailable": true
+}

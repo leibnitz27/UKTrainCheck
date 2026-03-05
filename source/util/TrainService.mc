@@ -1,0 +1,124 @@
+import Toybox.Lang;
+
+
+(:glance)
+class TrainService {
+
+    private var trains_        as Array<Train>;
+    private var pending_       as Boolean;
+    private var isRetry_      as Boolean;
+    private var busService_    as Boolean;
+    private var pendingFrom_   as String;
+    private var onDataChanged_ as Lang.Method;
+    private var requester_     as WebRequester;
+
+    function initialize(onDataChanged as Lang.Method, requester as WebRequester) {
+        trains_        = new Array<Train>[0];
+        pending_       = false;
+        isRetry_      = false;
+        busService_    = false;
+        pendingFrom_   = "";
+        onDataChanged_ = onDataChanged;
+        requester_     = requester;
+    }
+
+    function getTrains() as Array<Train> {
+        return trains_;
+    }
+
+    function isPending() as Boolean {
+        return pending_;
+    }
+
+    function isBusService() as Boolean {
+        return busService_;
+    }
+
+    function request(from as String, to as String, numRows as Number, timeOffset as Number or Null) as Void {
+        if (pending_) {
+            Log.println("Ignoring request, already pending");
+            return;
+        }
+        Log.println("Requesting " + from + " -> " + to);
+        pending_     = true;
+        isRetry_    = false;
+        busService_  = false;
+        pendingFrom_ = from;
+        _makeFilteredRequest(from, to, numRows, timeOffset);
+    }
+
+    function onReceive(responseCode as Number, data as Dictionary?) as Void {
+        if (responseCode != 200) {
+            Log.println("HTTP error: " + responseCode);
+            pending_ = false;
+            trains_  = new Array<Train>[0];
+            onDataChanged_.invoke();
+            return;
+        }
+
+        if (data == null) {
+            pending_ = false;
+            trains_  = new Array<Train>[0];
+            onDataChanged_.invoke();
+            return;
+        }
+
+        // First attempt: try trainServices, fall back to busServices.
+        // Retry attempt: skip trainServices, go straight to busServices (unfiltered).
+        var services = data.get(isRetry_ ? "busServices" : "trainServices");
+        busService_ = isRetry_ && (services != null);
+
+        if (services == null) {
+            if (!isRetry_) {
+                Log.println("No filtered services, retrying for replacement buses");
+                isRetry_ = true;
+                _makeUnfilteredRequest(pendingFrom_);
+                return;
+            }
+            Log.println("No services found");
+            pending_ = false;
+            trains_  = new Array<Train>[0];
+            onDataChanged_.invoke();
+            return;
+        }
+
+        pending_ = false;
+        trains_  = _parseServices(services as JsonArray);
+        onDataChanged_.invoke();
+    }
+
+    private function _parseServices(raw as JsonArray) as Array<Train> {
+        var size   = raw.size();
+        var result = new Array<Train>[size];
+        for (var i = 0; i < size; i++) {
+            var svc = raw[i] as Dictionary;
+            if (svc.hasKey("std") && svc.hasKey("etd")) {
+                result[i] = new Train(svc["std"] as String, svc["etd"] as String);
+            } else {
+                result[i] = new Train("???", "???");
+            }
+        }
+        return result;
+    }
+
+    private function _makeFilteredRequest(from as String, to as String, numRows as Number, timeOffset as Number or Null) as Void {
+        var params = {
+            "numRows"   => numRows.toString(),
+            "filterCrs" => to
+        };
+        if (timeOffset != null) {
+            params["timeOffset"] = (timeOffset as Number).toString();
+        }
+        _makeWebRequest(from, params);
+    }
+
+    private function _makeUnfilteredRequest(from as String) as Void {
+        _makeWebRequest(from, {
+            "numRows" => "5"
+        });
+    }
+
+    private function _makeWebRequest(from as String, params as Dictionary) as Void {
+        requester_.get(WebRequester.departureUrl(from), params, method(:onReceive));
+    }
+}

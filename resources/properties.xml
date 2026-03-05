@@ -1,0 +1,5 @@
+<properties xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <property id="Stop1" type="String">WTY</property>
+    <property id="Stop2" type="String">WAT</property>
+    <property id="SwitchHour" type="Number">12</property>
+</properties>
