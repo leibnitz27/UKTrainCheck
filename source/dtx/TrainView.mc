@@ -92,7 +92,7 @@ class TrainView extends WatchUi.View {
             // Can't happen but let's check for free ;)
             if (idx >= count) { break; }
             var train = trains[idx] as Train;
-            var label = busPrefix + train.label();
+            var label = busPrefix + train.shortLabel();
             if (train.isPast(nowMinutes)) {
                 dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_BLACK);
             } else if (train.isDelayed()) {

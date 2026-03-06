@@ -40,7 +40,7 @@ class TrainGlanceViewModel {
             var train = trains[0];
             // Always show actual status including "On time" — seeing it is
             // rewarding for the user, given that we're used to trains being late.
-            var time = train.getExpected() + " (" + train.getActual() + ")";
+            var time = train.label();
             return service_.isBusService() ? "BUS " + time : time;
         }
         var error = service_.getError();

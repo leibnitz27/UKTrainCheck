@@ -28,10 +28,14 @@ class Train {
     }
 
     function label() as String {
+        return expected_ + " (" + actual_ + ")";
+    }
+
+    function shortLabel() as String {
         if (!delayed_) {
             return expected_;
         }
-        return expected_ + "  " + actual_;
+        return expected_ + " (" + actual_ + ")";
     }
 
     function toStorage() as String {
