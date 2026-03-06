@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(SDK=\"/c/Users/lee/AppData/Roaming/Garmin/ConnectIQ/Sdks/connectiq-sdk-win-8.1.1-2025-03-27-66dae750f\")",
+      "Bash(\"$SDK/bin/monkeyc\" -f \"/c/code/garmin/UKTrain/UKTrainCheck/monkey.jungle\" -d fr965 -o \"/c/code/garmin/UKTrain/UKTrainCheck/bin/UKTrainCheck.prg\" -y \"/c/Users/lee/.ssh/garmin/developer_key\" -w -t)",
+      "Bash(\"$SDK/bin/monkeyc\" -f \"/c/code/garmin/UKTrain/UKTrainCheck/monkey.jungle\" -d fr955 -o \"/c/code/garmin/UKTrain/UKTrainCheck/bin/UKTrainCheck.prg\" -y \"/c/Users/lee/.ssh/garmin/developer_key\" -w -t)"
+    ]
+  }
+}
