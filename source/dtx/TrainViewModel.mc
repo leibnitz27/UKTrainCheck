@@ -54,6 +54,10 @@ class TrainViewModel {
         return service_.isBusService();
     }
 
+    function getError() as String or Null {
+        return service_.getError();
+    }
+
     function onDataChanged() as Void {
         WatchUi.requestUpdate();
     }

@@ -54,7 +54,8 @@ class TrainView extends WatchUi.View {
         var trainsY = startY + titleFh + gap;
 
         if (count == 0) {
-            var msg = viewModel_.isPending() ? "[Fetching]" : "[No trains]";
+            var error = viewModel_.getError();
+            var msg = viewModel_.isPending() ? "[Fetching]" : (error != null ? error : "[No trains]");
             dc.drawText(w / 2, trainsY, font, msg, Graphics.TEXT_JUSTIFY_CENTER);
             return;
         }

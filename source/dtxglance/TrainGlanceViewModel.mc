@@ -43,7 +43,8 @@ class TrainGlanceViewModel {
             var time = train.getExpected() + " (" + train.getActual() + ")";
             return service_.isBusService() ? "BUS " + time : time;
         }
-        return service_.isPending() ? "[Fetching]" : "[Unknown]";
+        var error = service_.getError();
+        return service_.isPending() ? "[Fetching]" : (error != null ? error : "[Unknown]");
     }
 
     function onDataChanged() as Void {

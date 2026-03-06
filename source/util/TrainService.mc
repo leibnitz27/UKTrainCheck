@@ -8,6 +8,7 @@ class TrainService {
     private var pending_       as Boolean;
     private var isRetry_      as Boolean;
     private var busService_    as Boolean;
+    private var error_         as String or Null;
     private var pendingFrom_   as String;
     private var onDataChanged_ as Lang.Method;
     private var requester_     as WebRequester;
@@ -17,6 +18,7 @@ class TrainService {
         pending_       = false;
         isRetry_      = false;
         busService_    = false;
+        error_         = null;
         pendingFrom_   = "";
         onDataChanged_ = onDataChanged;
         requester_     = requester;
@@ -34,6 +36,10 @@ class TrainService {
         return busService_;
     }
 
+    function getError() as String or Null {
+        return error_;
+    }
+
     function request(from as String, to as String, numRows as Number, timeOffset as Number or Null) as Void {
         if (pending_) {
             Log.println("Ignoring request, already pending");
@@ -43,13 +49,22 @@ class TrainService {
         pending_     = true;
         isRetry_    = false;
         busService_  = false;
+        error_       = null;
         pendingFrom_ = from;
         _makeFilteredRequest(from, to, numRows, timeOffset);
     }
 
     function onReceive(responseCode as Number, data as Dictionary?) as Void {
         if (responseCode != 200) {
-            Log.println("HTTP error: " + responseCode);
+            var message = (data != null && data.hasKey("Message")) ? data.get("Message") as String : null;
+            Log.println("HTTP error: " + responseCode + (message != null ? ": " + message : ""));
+            // Match on the API message rather than the status code so we only show
+            // "[Bad stop code]" when the server explicitly tells us the CRS is invalid.
+            // (HTTP errors via the phone/BLE proxy can also arrive as negative codes,
+            // e.g. 400 becomes -400, so status-code matching alone is unreliable.)
+            error_   = (message != null && message.equals("Invalid crs code supplied"))
+                ? "[Bad stop code]"
+                : "[Error " + responseCode + "]";
             pending_ = false;
             trains_  = new Array<Train>[0];
             onDataChanged_.invoke();
@@ -57,6 +72,7 @@ class TrainService {
         }
 
         if (data == null) {
+            error_   = "[No data]";
             pending_ = false;
             trains_  = new Array<Train>[0];
             onDataChanged_.invoke();
