@@ -64,7 +64,24 @@ class TrainViewModel {
     }
 
     function getTrains() as Array<Train> {
-        return service_.getTrains();
+        var all = service_.getTrains();
+        var now = Gregorian.info(Time.now(), Time.FORMAT_LONG);
+        var nowMinutes = now.hour * 60 + now.min;
+
+        // Find the index of the first future train.
+        var firstFuture = 0;
+        while (firstFuture < all.size() && (all[firstFuture] as Train).isPast(nowMinutes)) {
+            firstFuture++;
+        }
+
+        // Cap past trains to 3 — older ones aren't useful on screen.
+        var pastStart = firstFuture > 3 ? firstFuture - 3 : 0;
+        var size = all.size() - pastStart;
+        var result = new Array<Train>[size];
+        for (var i = 0; i < size; i++) {
+            result[i] = all[pastStart + i] as Train;
+        }
+        return result;
     }
 
     function isPending() as Boolean {

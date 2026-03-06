@@ -32,6 +32,7 @@ class TrainView extends WatchUi.View {
         var w         = dc.getWidth();
         var h         = dc.getHeight();
         var titleFont = Graphics.FONT_TINY;
+        var title = viewModel_.getTitle();
         var font      = Graphics.FONT_SMALL;
         var titleFh   = dc.getFontHeight(titleFont);
         var fh        = dc.getFontHeight(font);
@@ -56,9 +57,10 @@ class TrainView extends WatchUi.View {
         // Vertically center the visible block (title + visible rows) so the title
         // lands in the wider part of the round screen rather than near the top.
         var blockH = titleFh + gap + (visible > 0 ? visible * lineH : fh);
-        var startY = (h - blockH) / 2;
+        // Shift down slightly so the title lands in the wider part of round screens.
+        var startY = (h - blockH) / 2 + 8;
 
-        dc.drawText(w / 2, startY, titleFont, viewModel_.getTitle(), Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(w / 2, startY, titleFont, title, Graphics.TEXT_JUSTIFY_CENTER);
 
         var trainsY = startY + titleFh + gap;
 
@@ -86,7 +88,10 @@ class TrainView extends WatchUi.View {
         var nowMinutes = now.hour * 60 + now.min;
 
         for (var i = 0; i < visible; i++) {
-            var train = trains[offset + i] as Train;
+            var idx = offset + i;
+            // Can't happen but let's check for free ;)
+            if (idx >= count) { break; }
+            var train = trains[idx] as Train;
             var label = busPrefix + train.label();
             if (train.isPast(nowMinutes)) {
                 dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_BLACK);
