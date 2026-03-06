@@ -4,6 +4,11 @@ import Toybox.Time;
 using Toybox.Time.Gregorian;
 using Toybox.WatchUi;
 
+// Fetch enough rows to cover busy routes (e.g. 30 trains/hour * 1-hour lookback).
+const FETCH_ROWS   = 60;
+// Show trains from up to 60 minutes ago so quiet routes (1/hour) still show 1 past train.
+const FETCH_OFFSET = -60;
+
 class TrainViewModel {
 
     private var service_    as TrainService;
@@ -33,11 +38,9 @@ class TrainViewModel {
         offset_ = 0;
         var now = Gregorian.info(Time.now(), Time.FORMAT_LONG);
         outward_ = (now.hour < switchHour_);
-        if (outward_) {
-            service_.request(stop1_, stop2_, 10, -60);
-        } else {
-            service_.request(stop2_, stop1_, 10, -60);
-        }
+        var from = outward_ ? stop1_ : stop2_;
+        var to   = outward_ ? stop2_ : stop1_;
+        service_.request(from, to, FETCH_ROWS, FETCH_OFFSET);
     }
 
     function getOffset() as Number {

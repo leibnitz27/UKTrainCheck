@@ -1,6 +1,6 @@
 <strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
     <string id="AppName">Train Time</string>
-    <string id="Stop1Title">Home Station (3-letter CRS, e.g. GLD):</string>
-    <string id="Stop2Title">Away Station (3-letter CRS, e.g. WAT):</string>
+    <string id="Stop1Title">Home Station CRS (e.g. GLD):</string>
+    <string id="Stop2Title">Away Station CRS (e.g. WAT):</string>
     <string id="SwitchHourTitle">Switch direction after:</string>
 </strings>
