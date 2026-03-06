@@ -16,8 +16,8 @@ class TrainDelegate extends WatchUi.BehaviorDelegate {
         return true;
     }
 
-    function onNextPage()     as Boolean { return true;  }
-    function onPreviousPage() as Boolean { return true;  }
+    function onNextPage()     as Boolean { viewModel_.scrollDown(); return true; }
+    function onPreviousPage() as Boolean { viewModel_.scrollUp();   return true; }
     function onMenu()         as Boolean { return true;  }
     function onBack()         as Boolean { return false; }
 }

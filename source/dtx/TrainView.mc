@@ -44,9 +44,18 @@ class TrainView extends WatchUi.View {
         var trains = viewModel_.getTrains();
         var count  = trains.size();
 
-        // Vertically center the whole block (title + trains) so the title
+        // How many train rows fit on screen — calculated from actual screen height
+        // so this works across all device sizes without hardcoding.
+        var maxVisible = (h - titleFh - gap) / lineH;
+        if (maxVisible < 1) { maxVisible = 1; }
+
+        var offset    = viewModel_.getOffset();
+        var remaining = count - offset;
+        var visible   = remaining < maxVisible ? remaining : maxVisible;
+
+        // Vertically center the visible block (title + visible rows) so the title
         // lands in the wider part of the round screen rather than near the top.
-        var blockH = titleFh + gap + (count > 0 ? count * lineH : fh);
+        var blockH = titleFh + gap + (visible > 0 ? visible * lineH : fh);
         var startY = (h - blockH) / 2;
 
         dc.drawText(w / 2, startY, titleFont, viewModel_.getTitle(), Graphics.TEXT_JUSTIFY_CENTER);
@@ -60,14 +69,24 @@ class TrainView extends WatchUi.View {
             return;
         }
 
+        // Scroll indicators — shown in dark grey at the screen edges when
+        // there are trains above or below the current window.
+        dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_BLACK);
+        if (offset > 0) {
+            dc.drawText(w / 2, startY - titleFh, titleFont, "^", Graphics.TEXT_JUSTIFY_CENTER);
+        }
+        if (offset + maxVisible < count) {
+            dc.drawText(w / 2, trainsY + visible * lineH, titleFont, "v", Graphics.TEXT_JUSTIFY_CENTER);
+        }
+
         var busPrefix  = viewModel_.isBusService() ? "BUS " : "";
         // Uses device local time. Correct when the watch is set to UK/London timezone,
         // which is the expected configuration for this app.
         var now        = Gregorian.info(Time.now(), Time.FORMAT_LONG);
         var nowMinutes = now.hour * 60 + now.min;
 
-        for (var i = 0; i < count; i++) {
-            var train = trains[i] as Train;
+        for (var i = 0; i < visible; i++) {
+            var train = trains[offset + i] as Train;
             var label = busPrefix + train.label();
             if (train.isPast(nowMinutes)) {
                 dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_BLACK);

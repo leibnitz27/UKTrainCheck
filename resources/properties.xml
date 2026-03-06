@@ -1,5 +1,13 @@
 <properties xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
-    <property id="Stop1" type="String">WTY</property>
+    <!--
+        Ideally Stop1/Stop2 would be a dropdown of all UK CRS codes with station names,
+        so users can't enter invalid values. This isn't practical because:
+          - There are ~2,600 UK stations, making the list unusable on a phone screen
+          - Garmin settings dropdowns have no search or filter capability
+        Instead, settings.xml uses descriptive titles with CRS format hints (e.g. "GLD"),
+        and TrainService surfaces "[Bad stop code]" on a 400 response from the API.
+    -->
+    <property id="Stop1" type="String">GLD</property>
     <property id="Stop2" type="String">WAT</property>
     <property id="SwitchHour" type="Number">12</property>
 </properties>

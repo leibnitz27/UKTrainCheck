@@ -11,6 +11,7 @@ class TrainViewModel {
     private var stop2_      as String;
     private var outward_    as Boolean;
     private var switchHour_ as Number;
+    private var offset_     as Number = 0;
 
     function initialize(stop1 as String, stop2 as String, switchHour as Number, requester as WebRequester) {
         stop1_      = stop1;
@@ -29,12 +30,32 @@ class TrainViewModel {
     }
 
     function refresh() as Void {
+        offset_ = 0;
         var now = Gregorian.info(Time.now(), Time.FORMAT_LONG);
         outward_ = (now.hour < switchHour_);
         if (outward_) {
             service_.request(stop1_, stop2_, 10, -60);
         } else {
             service_.request(stop2_, stop1_, 10, -60);
+        }
+    }
+
+    function getOffset() as Number {
+        return offset_;
+    }
+
+    function scrollDown() as Void {
+        var max = service_.getTrains().size() - 1;
+        if (offset_ < max) {
+            offset_++;
+            WatchUi.requestUpdate();
+        }
+    }
+
+    function scrollUp() as Void {
+        if (offset_ > 0) {
+            offset_--;
+            WatchUi.requestUpdate();
         }
     }
 
